@@ -1,0 +1,105 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                             Parabolic EA         |
+//|                                             forexroboteasy.com   |
+//|                                             Forex Robot Easy Team|
+//+------------------------------------------------------------------+
+
+//+------------------------------------------------------------------+
+//|                                                         Includes |
+//+------------------------------------------------------------------+
+#include <MovingAverages.mqh>
+#include <RSI.mqh>
+
+//+------------------------------------------------------------------+
+//|                                                Global Variables |
+//+------------------------------------------------------------------+
+double marketHigh;
+double marketLow;
+double maValue;
+double rsiValue;
+
+//+------------------------------------------------------------------+
+//|                                             Custom Indicator    |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+   // Initialize Moving Averages
+   if(!MovingAveragesInitialize())
+   {
+      Print('Failed to initialize Moving Averages!');
+      return INIT_FAILED;
+   }
+   
+   // Initialize RSI
+   if(!RSIInitialize())
+   {
+      Print('Failed to initialize RSI!');
+      return INIT_FAILED;
+   }
+   
+   return INIT_SUCCEEDED;
+}
+
+int OnDeinit(const int reason)
+{
+   // Deinitialize Moving Averages
+   MovingAveragesDeinitialize();
+   
+   // Deinitialize RSI
+   RSIDeinitialize();
+   
+   return DEINIT_SUCCEEDED;
+}
+
+//+------------------------------------------------------------------+
+//|                                          Custom Trend Analysis   |
+//+------------------------------------------------------------------+
+void AnalyzeTrend()
+{
+   // Implement advanced algorithm for trend analysis
+   // ...
+   
+   // Identify market highs and lows
+   marketHigh = High[0];
+   marketLow = Low[0];
+}
+
+//+------------------------------------------------------------------+
+//|                                          Custom Trend Synchronization |
+//+------------------------------------------------------------------+
+void SynchronizeWithMovingAverages()
+{
+   // Get Moving Averages value
+   maValue = MovingAveragesGetValue();
+}
+
+//+------------------------------------------------------------------+
+//|                                          Custom Noise Filtering  |
+//+------------------------------------------------------------------+
+void FilterMarketNoise()
+{
+   // Synchronize with RSI
+   rsiValue = RSIGetValue();
+   
+   // Filter market noise using RSI
+   // ...
+}
+
+//+------------------------------------------------------------------+
+//|                                                      Entry Point |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+   // Analyze trend
+   AnalyzeTrend();
+   
+   // Synchronize with Moving Averages
+   SynchronizeWithMovingAverages();
+   
+   // Filter market noise
+   FilterMarketNoise();
+   
+   // Execute trading strategy based on trend analysis and filtering
+   // ...
+}
